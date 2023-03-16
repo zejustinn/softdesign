@@ -4,7 +4,7 @@
   "description": "Softdesign technical challenge",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node -r dotenv/config src/server.js"
+    "dev": "nodemon -r dotenv/config src/server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "8.7.0",
     "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.21",
     "prettier": "2.8.4"
   },
   "dependencies": {
