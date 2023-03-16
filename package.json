@@ -1,0 +1,24 @@
+{
+  "name": "softdesign",
+  "version": "1.0.0",
+  "description": "Softdesign technical challenge",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zejustinn/softdesign.git"
+  },
+  "author": "Jose Leandro Santos Justin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zejustinn/softdesign/issues"
+  },
+  "homepage": "https://github.com/zejustinn/softdesign#readme",
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
