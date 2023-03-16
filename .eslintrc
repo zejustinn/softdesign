@@ -4,5 +4,8 @@
         "node": true,
         "commonjs": true,
         "es2021": true
+    },
+    "rules": {
+        "import/extensions": ["error", "ignorePackages"]
     }
 }
