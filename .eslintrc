@@ -1,7 +1,12 @@
 {
-    "extends": ["airbnb-base", "prettier"],
+    "extends": [
+        "airbnb-base",
+        "prettier",
+        "plugin:security/recommended"
+    ],
     "plugins": [
-        "mocha"
+        "mocha",
+        "security"
     ],
     "env": {
         "node": true,
@@ -9,6 +14,9 @@
         "mocha": true
     },
     "rules": {
-        "import/extensions": ["error", "ignorePackages"]
+        "import/extensions": [
+            "error",
+            "ignorePackages"
+        ]
     }
 }
