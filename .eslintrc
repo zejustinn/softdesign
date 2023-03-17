@@ -1,9 +1,12 @@
 {
     "extends": ["airbnb-base", "prettier"],
+    "plugins": [
+        "mocha"
+    ],
     "env": {
         "node": true,
-        "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "mocha": true
     },
     "rules": {
         "import/extensions": ["error", "ignorePackages"]
