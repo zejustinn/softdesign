@@ -7,7 +7,7 @@ export default class Utils {
    * to the default value. Created this way to facilitate tests
    */
   static checkRequiredEnvironmentVariables(
-    requiredEnviromentVariables = ['NODE_ENV']
+    requiredEnviromentVariables = ['NODE_ENV', 'EXPRESS_SERVER_PORT']
   ) {
     requiredEnviromentVariables.forEach((requiredEnviromentVariable) => {
       // Object injection suppressed because it's controlled data

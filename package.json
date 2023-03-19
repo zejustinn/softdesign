@@ -2,10 +2,10 @@
   "name": "softdesign",
   "version": "1.0.0",
   "description": "Softdesign technical challenge",
-  "main": "src/server.js",
+  "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/server.js",
+    "dev": "nodemon -r dotenv/config src/main.js",
     "test": "mocha 'src/**/*.test.js'"
   },
   "repository": {
