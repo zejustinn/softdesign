@@ -1,7 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 
-import Utils from './utils/Utils.js';
+import Utils from './components/utils/Utils.js';
 
 class App {
   checkRequiredEnvironmentVariables() {

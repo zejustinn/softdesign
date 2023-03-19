@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { assert } from 'chai';
 
 import App from './App.js';
-import Utils from './utils/Utils.js';
+import Utils from './components/utils/Utils.js';
 
 describe('src/App.js', () => {
   afterEach(() => {
