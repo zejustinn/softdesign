@@ -4,10 +4,12 @@
   "env": {
     "node": true,
     "es2021": true,
-    "mocha": true
+    "mocha": true,
+    "arrowFunctions": true
   },
   "rules": {
     "import/extensions": ["error", "ignorePackages"],
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-new": "warn"
   }
 }
