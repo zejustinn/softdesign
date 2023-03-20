@@ -15,8 +15,18 @@ export default class Book {
     this.description = description;
     this.author = author;
     this.genre = genre;
-    this.isRented = isRented === 'true';
+    this.setIsRented(isRented);
   }
+
+  setIsRented = (isRented) => {
+    if (isRented === undefined) return;
+
+    if (typeof isRented === 'string') {
+      this.isRented = isRented === 'true';
+    } else {
+      this.isRented = isRented;
+    }
+  };
 
   validateContent = () => {
     const { errors } = validate(this, {

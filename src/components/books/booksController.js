@@ -46,6 +46,13 @@ const booksController = {
 
     return await booksService.getBook(id);
   },
+
+  rentBook: async (id) => {
+    const book = new Book({ id });
+    book.validateContent();
+
+    return await booksService.rentBook(id);
+  },
 };
 
 export default booksController;

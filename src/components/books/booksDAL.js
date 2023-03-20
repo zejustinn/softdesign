@@ -74,6 +74,24 @@ const booksDAL = {
   findBook: async (id) => {
     return await BooksModel.findById(id);
   },
+
+  toggleBookState: async (book) => {
+    const mongoConnection = await utils.startMongoConnection();
+
+    const result = await booksDAL.findOneAndUpdate(book);
+
+    await utils.endMongoConnection(mongoConnection);
+
+    return new Book(result);
+  },
+
+  findOneAndUpdate: async (book) => {
+    return await BooksModel.findOneAndUpdate(
+      { _id: book.id },
+      { isRented: !book.isRented },
+      { returnOriginal: false }
+    );
+  },
 };
 
 export default booksDAL;
