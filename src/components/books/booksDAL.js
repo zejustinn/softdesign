@@ -92,6 +92,20 @@ const booksDAL = {
       { returnOriginal: false }
     );
   },
+
+  createBook: async (book) => {
+    const mongoConnection = await utils.startMongoConnection();
+
+    const result = await booksDAL.mongoCreateBook(book);
+
+    await utils.endMongoConnection(mongoConnection);
+
+    return new Book(result);
+  },
+
+  mongoCreateBook: async (book) => {
+    return await BooksModel.create(book);
+  },
 };
 
 export default booksDAL;

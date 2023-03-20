@@ -34,6 +34,10 @@ const booksService = {
 
     return returnedBook;
   },
+
+  createBook: async (book) => {
+    return await BooksDAL.createBook(book);
+  },
 };
 
 export default booksService;

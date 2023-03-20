@@ -70,4 +70,16 @@ export default class Book {
 
     return result;
   };
+
+  validateRequiredCreationalContent = () => {
+    const { errors } = validate(this, {
+      type: 'object',
+      properties: {
+        title: { type: 'string', maxLength: 200, required: true },
+      },
+    });
+
+    if (errors.length !== 0)
+      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+  };
 }

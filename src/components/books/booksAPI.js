@@ -72,4 +72,24 @@ booksAPI.post('/:id/returnRented', async (req, res) => {
   }
 });
 
+booksAPI.post('/', async (req, res) => {
+  try {
+    const { title, description, author, genre, isRented } = req.body;
+    const books = await booksController.createBook(
+      title,
+      description,
+      author,
+      genre,
+      isRented
+    );
+
+    res.contentType('application/json').status(201).send({ data: books });
+  } catch (error) {
+    res
+      .contentType('application/json')
+      .status(500)
+      .send({ error: { message: error.message } });
+  }
+});
+
 export default booksAPI;

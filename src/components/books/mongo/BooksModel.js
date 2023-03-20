@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema({
   description: mongoose.Schema.Types.String,
   author: mongoose.Schema.Types.String,
   genre: mongoose.Schema.Types.String,
-  isRented: mongoose.Schema.Types.Boolean,
+  isRented: { type: mongoose.Schema.Types.Boolean, default: false },
 });
 
 const BooksModel = mongoose.model('books', bookSchema);
