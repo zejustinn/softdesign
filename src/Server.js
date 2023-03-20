@@ -15,6 +15,7 @@ export default class Server {
     this.app.checkRequiredEnvironmentVariables();
     this.app.createExpressServer();
     this.app.setExpressMiddlewares();
+    this.app.setRoutes();
   };
 
   startServer = () => {

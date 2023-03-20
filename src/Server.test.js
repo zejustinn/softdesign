@@ -28,11 +28,13 @@ describe('src/Server.js', () => {
       const fakeCheckRequiredEnvironmentVariables = sinon.fake();
       const fakeCreateExpressServer = sinon.fake();
       const fakeSetExpressMiddlewares = sinon.fake();
+      const fakeSetRoutes = sinon.fake();
       const app = {
         checkRequiredEnvironmentVariables:
           fakeCheckRequiredEnvironmentVariables,
         createExpressServer: fakeCreateExpressServer,
         setExpressMiddlewares: fakeSetExpressMiddlewares,
+        setRoutes: fakeSetRoutes,
       };
       const server = new Server(app, 'port');
 
@@ -41,6 +43,7 @@ describe('src/Server.js', () => {
       assert.isTrue(fakeCheckRequiredEnvironmentVariables.calledOnce);
       assert.isTrue(fakeCreateExpressServer.calledOnce);
       assert.isTrue(fakeSetExpressMiddlewares.calledOnce);
+      assert.isTrue(fakeSetRoutes.calledOnce);
     });
   });
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import booksAPI from './components/books/booksAPI.js';
 
 import Utils from './components/utils/Utils.js';
 
@@ -19,6 +20,10 @@ class App {
 
   startApplicationServer = (port, callback) => {
     this.express.listen(port, callback());
+  };
+
+  setRoutes = () => {
+    this.express.use('/books', booksAPI);
   };
 }
 

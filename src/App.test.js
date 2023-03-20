@@ -3,6 +3,7 @@ import { assert } from 'chai';
 
 import App from './App.js';
 import Utils from './components/utils/Utils.js';
+import booksAPI from './components/books/booksAPI.js';
 
 describe('src/App.js', () => {
   afterEach(() => {
@@ -74,6 +75,21 @@ describe('src/App.js', () => {
         assert.isTrue(fakeListen.calledOnceWith(port));
         assert.isTrue(fakeCallback.calledOnce);
       });
+    });
+  });
+
+  describe('When involking "setRoutes"', () => {
+    it('Should call "use" of "express" once per resource', () => {
+      const fakeUse = sinon.fake();
+      const expressObject = {
+        use: fakeUse,
+      };
+      const app = new App();
+      app.express = expressObject;
+
+      app.setRoutes();
+
+      assert.isTrue(fakeUse.calledOnceWithExactly('/books', booksAPI));
     });
   });
 });
