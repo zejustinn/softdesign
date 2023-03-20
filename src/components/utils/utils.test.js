@@ -1,7 +1,9 @@
 import { assert } from 'chai';
+import mongoose from 'mongoose';
+import sinon from 'sinon';
 import utils from './utils.js';
 
-describe('src/utils/checkRequiredEnvironmentVariables.js', () => {
+describe('src/utils/utils.js', () => {
   describe('When involking checkRequiredEnvironmentVariables', () => {
     describe('Should test given envionment variables', () => {
       it('Without any error, if all environment variables are setted', () => {
@@ -19,6 +21,30 @@ describe('src/utils/checkRequiredEnvironmentVariables.js', () => {
           ]);
         }, Error);
       });
+    });
+  });
+
+  describe('When involking "startMongoConnection"', () => {
+    it('Should call "connect" from "mongoose"', async () => {
+      const fakeConnect = sinon.fake();
+      sinon.replace(mongoose, 'connect', fakeConnect);
+
+      await utils.startMongoConnection();
+
+      assert.isTrue(fakeConnect.calledOnce);
+    });
+  });
+
+  describe('When involking "endMongoConnection"', () => {
+    it('Should call "disconnect" from given "mongoConnection"', async () => {
+      const fakeDisconnect = sinon.fake();
+      const mongoConnection = {
+        disconnect: fakeDisconnect,
+      };
+
+      await utils.endMongoConnection(mongoConnection);
+
+      assert.isTrue(fakeDisconnect.calledOnce);
     });
   });
 });
