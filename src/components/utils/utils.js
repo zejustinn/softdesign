@@ -36,6 +36,18 @@ const utils = {
   endMongoConnection: async (mongoConnection) => {
     await mongoConnection.disconnect();
   },
+
+  formatJsonSchemaValidationErrors: (errors) => {
+    let result = 'Error with given data: ';
+
+    errors.forEach(({ stack }, index) => {
+      index !== errors.length - 1
+        ? (result += stack + '; ')
+        : (result += stack + '.');
+    });
+
+    return result.replaceAll('instance.', '');
+  },
 };
 
 export default utils;

@@ -47,4 +47,21 @@ describe('src/utils/utils.js', () => {
       assert.isTrue(fakeDisconnect.calledOnce);
     });
   });
+
+  describe('When involking "formatJsonSchemaValidationErrors"', () => {
+    it('Should concat all "stack" property replacing the word "instance." with "Error with given data: "', () => {
+      const errors = [
+        { stack: 'erro 1 some textinstance.' },
+        { stack: 'instance.erro 2 some text' },
+        { stack: 'erro 2 instance.some text' },
+      ];
+
+      const result = utils.formatJsonSchemaValidationErrors(errors);
+
+      assert.equal(
+        result,
+        'Error with given data: erro 1 some text; erro 2 some text; erro 2 some text.'
+      );
+    });
+  });
 });
