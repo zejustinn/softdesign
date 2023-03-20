@@ -1,0 +1,8 @@
+docker-entrypoint-initdb.d
+.env
+.eslintrc
+.gitignore
+.prettierrc
+docker-compose.yml
+dockerfile
+LICENSE

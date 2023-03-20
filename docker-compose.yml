@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  backend:
+    build: ./
+    env_file:
+      - .env
+    ports:
+      - 8088:8088
+    depends_on:
+      - database
+  database:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: roottestpassword
+      MONGO_INITDB_DATABASE: softdesign_books
+    volumes:
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js

@@ -7,7 +7,13 @@ export default class Utils {
    * to the default value. Created this way to facilitate tests
    */
   static checkRequiredEnvironmentVariables(
-    requiredEnviromentVariables = ['NODE_ENV', 'EXPRESS_SERVER_PORT']
+    requiredEnviromentVariables = [
+      'NODE_ENV',
+      'EXPRESS_SERVER_PORT',
+      'MONGO_USERNAME',
+      'MONGO_PASSWORD',
+      'MONGO_DATABASE',
+    ]
   ) {
     requiredEnviromentVariables.forEach((requiredEnviromentVariable) => {
       // Object injection suppressed because it's controlled data
