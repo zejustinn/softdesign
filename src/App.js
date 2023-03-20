@@ -2,11 +2,11 @@ import express from 'express';
 import helmet from 'helmet';
 import booksAPI from './components/books/booksAPI.js';
 
-import Utils from './components/utils/Utils.js';
+import utils from './components/utils/utils.js';
 
 class App {
   checkRequiredEnvironmentVariables() {
-    Utils.checkRequiredEnvironmentVariables();
+    utils.checkRequiredEnvironmentVariables();
   }
 
   createExpressServer = () => {

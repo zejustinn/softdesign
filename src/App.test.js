@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { assert } from 'chai';
 
 import App from './App.js';
-import Utils from './components/utils/Utils.js';
+import utils from './components/utils/utils.js';
 import booksAPI from './components/books/booksAPI.js';
 
 describe('src/App.js', () => {
@@ -11,10 +11,10 @@ describe('src/App.js', () => {
   });
 
   describe('When involking "checkRequiredEnvironmentVariables"', () => {
-    it('Should call "checkRequiredEnvironmentVariables" from Utils', () => {
+    it('Should call "checkRequiredEnvironmentVariables" from utils', () => {
       const fakeCheckRequiredEnvironmentVariables = sinon.fake();
       sinon.replace(
-        Utils,
+        utils,
         'checkRequiredEnvironmentVariables',
         fakeCheckRequiredEnvironmentVariables
       );

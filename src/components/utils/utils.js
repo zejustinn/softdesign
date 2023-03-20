@@ -1,4 +1,4 @@
-export default class Utils {
+const utils = {
   /**
    * Method created to test predefined environment variables before trying to
    * start the server
@@ -6,7 +6,7 @@ export default class Utils {
    * given by the caller. He should declare new environment variables by adding
    * to the default value. Created this way to facilitate tests
    */
-  static checkRequiredEnvironmentVariables(
+  checkRequiredEnvironmentVariables(
     requiredEnviromentVariables = [
       'NODE_ENV',
       'EXPRESS_SERVER_PORT',
@@ -23,5 +23,7 @@ export default class Utils {
           'Required variables must not be neither null or undefined. be sure to define them'
         );
     });
-  }
-}
+  },
+};
+
+export default utils;
