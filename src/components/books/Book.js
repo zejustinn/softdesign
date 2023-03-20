@@ -28,7 +28,7 @@ export default class Book {
     }
   };
 
-  validateContent = () => {
+  validateOptionContent = () => {
     const { errors } = validate(this, {
       type: 'object',
       properties: {
@@ -58,32 +58,7 @@ export default class Book {
     return result;
   };
 
-  toString = () => {
-    const result = {};
-
-    if (this.id !== undefined) result.id = this.id;
-    if (this.title !== undefined) result.title = this.title;
-    if (this.description !== undefined) result.description = this.description;
-    if (this.author !== undefined) result.author = this.author;
-    if (this.genre !== undefined) result.genre = this.genre;
-    if (this.isRented !== undefined) result.isRented = this.isRented;
-
-    return result;
-  };
-
-  validateRequiredCreationalContent = () => {
-    const { errors } = validate(this, {
-      type: 'object',
-      properties: {
-        title: { type: 'string', maxLength: 200, required: true },
-      },
-    });
-
-    if (errors.length !== 0)
-      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
-  };
-
-  validateRequiredUpdationalContent = () => {
+  validateRequiredId = () => {
     const { errors } = validate(this, {
       type: 'object',
       properties: {
@@ -100,9 +75,39 @@ export default class Book {
       throw new Error(utils.formatJsonSchemaValidationErrors(errors));
   };
 
-  createMongoUpdateQuery = (modelInstance) => {
+  validateRequiredIdAnTitle = () => {
+    const { errors } = validate(this, {
+      type: 'object',
+      properties: {
+        id: { type: 'string', required: true },
+        title: { type: 'string', maxLength: 200, required: true },
+        description: { type: 'string', maxLength: 2000 },
+        author: { type: 'string', maxLength: 100 },
+        genre: { type: 'string', maxLength: 100 },
+        isRented: { type: 'boolean' },
+      },
+    });
+
+    if (errors.length !== 0)
+      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+  };
+
+  createMongoUpdateQuery = () => {
     const result = {};
 
+    if (this.title !== undefined) result.title = this.title;
+    if (this.description !== undefined) result.description = this.description;
+    if (this.author !== undefined) result.author = this.author;
+    if (this.genre !== undefined) result.genre = this.genre;
+    if (this.isRented !== undefined) result.isRented = this.isRented;
+
+    return result;
+  };
+
+  toString = () => {
+    const result = {};
+
+    if (this.id !== undefined) result.id = this.id;
     if (this.title !== undefined) result.title = this.title;
     if (this.description !== undefined) result.description = this.description;
     if (this.author !== undefined) result.author = this.author;

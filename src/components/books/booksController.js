@@ -14,13 +14,13 @@ const booksController = {
     pageNumber
   ) => {
     const book = new Book({ title, description, author, genre, isRented });
-    book.validateContent();
-    booksController.validateExtraDataIfNecessary(numberPerPage, pageNumber);
+    book.validateOptionContent();
+    booksController.validateExtraContent(numberPerPage, pageNumber);
 
     return await booksService.getAllBooks(book, numberPerPage, pageNumber);
   },
 
-  validateExtraDataIfNecessary: (numberPerPage, pageNumber) => {
+  validateExtraContent: (numberPerPage, pageNumber) => {
     const instance = {};
 
     if (!numberPerPage && !pageNumber) return;
@@ -42,43 +42,42 @@ const booksController = {
 
   getBook: async (id) => {
     const book = new Book({ id });
-    book.validateContent();
+    book.validateRequiredId();
 
     return await booksService.getBook(id);
   },
 
   rentBook: async (id) => {
     const book = new Book({ id });
-    book.validateContent();
+    book.validateRequiredId();
 
     return await booksService.rentBook(id);
   },
 
   returnRentedBook: async (id) => {
     const book = new Book({ id });
-    book.validateContent();
+    book.validateRequiredId();
 
     return await booksService.returnRentedBook(id);
   },
 
   createBook: async (title, description, author, genre, isRented) => {
     const book = new Book({ title, description, author, genre, isRented });
-    book.validateRequiredCreationalContent();
-    book.validateContent();
+    book.validateRequiredIdAnTitle();
 
     return await booksService.createBook(book);
   },
 
   updateBook: async (id, title, description, author, genre, isRented) => {
     const book = new Book({ id, title, description, author, genre, isRented });
-    book.validateRequiredUpdationalContent();
+    book.validateRequiredId();
 
     return await booksService.updateBook(book);
   },
 
   deleteBook: async (id) => {
     const book = new Book({ id });
-    book.validateRequiredUpdationalContent();
+    book.validateRequiredId();
 
     return await booksService.deleteBook(id);
   },
