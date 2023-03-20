@@ -1,0 +1,44 @@
+import { validate } from 'jsonschema';
+import utils from '../utils/utils.js';
+import Book from './Book.js';
+import booksService from './booksService.js';
+
+const booksController = {
+  getAllBooks: async (
+    title,
+    description,
+    author,
+    genre,
+    isRented,
+    numberPerPage,
+    pageNumber
+  ) => {
+    const book = new Book({ title, description, author, genre, isRented });
+    book.validateContent();
+    booksController.validateExtraDataIfNecessary(numberPerPage, pageNumber);
+
+    return await booksService.getAllBooks(book, numberPerPage, pageNumber);
+  },
+
+  validateExtraDataIfNecessary: (numberPerPage, pageNumber) => {
+    const instance = {};
+
+    if (!numberPerPage && !pageNumber) return;
+
+    numberPerPage ? (instance.numberPerPage = Number(numberPerPage)) : null;
+    pageNumber ? (instance.pageNumber = Number(pageNumber)) : null;
+
+    const { errors } = validate(instance, {
+      type: 'object',
+      properties: {
+        numberPerPage: { type: 'number' },
+        pageNumber: { type: 'number' },
+      },
+    });
+
+    if (errors.length !== 0)
+      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+  },
+};
+
+export default booksController;
