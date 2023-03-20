@@ -35,9 +35,9 @@ booksAPI.get('/', async (req, res) => {
 
 booksAPI.get('/:id', async (req, res) => {
   try {
-    const books = await booksController.getBook(req.params.id);
+    const book = await booksController.getBook(req.params.id);
 
-    res.contentType('application/json').status(200).send({ data: books });
+    res.contentType('application/json').status(200).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
@@ -48,9 +48,9 @@ booksAPI.get('/:id', async (req, res) => {
 
 booksAPI.post('/:id/rent', async (req, res) => {
   try {
-    const books = await booksController.rentBook(req.params.id);
+    const book = await booksController.rentBook(req.params.id);
 
-    res.contentType('application/json').status(200).send({ data: books });
+    res.contentType('application/json').status(200).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
@@ -61,9 +61,9 @@ booksAPI.post('/:id/rent', async (req, res) => {
 
 booksAPI.post('/:id/returnRented', async (req, res) => {
   try {
-    const books = await booksController.returnRentedBook(req.params.id);
+    const book = await booksController.returnRentedBook(req.params.id);
 
-    res.contentType('application/json').status(200).send({ data: books });
+    res.contentType('application/json').status(200).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
@@ -75,7 +75,7 @@ booksAPI.post('/:id/returnRented', async (req, res) => {
 booksAPI.post('/', async (req, res) => {
   try {
     const { title, description, author, genre, isRented } = req.body;
-    const books = await booksController.createBook(
+    const book = await booksController.createBook(
       title,
       description,
       author,
@@ -83,7 +83,7 @@ booksAPI.post('/', async (req, res) => {
       isRented
     );
 
-    res.contentType('application/json').status(201).send({ data: books });
+    res.contentType('application/json').status(201).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
@@ -95,7 +95,7 @@ booksAPI.post('/', async (req, res) => {
 booksAPI.patch('/:id', async (req, res) => {
   try {
     const { title, description, author, genre, isRented } = req.body;
-    const books = await booksController.updateBook(
+    const book = await booksController.updateBook(
       req.params.id,
       title,
       description,
@@ -104,7 +104,7 @@ booksAPI.patch('/:id', async (req, res) => {
       isRented
     );
 
-    res.contentType('application/json').status(200).send({ data: books });
+    res.contentType('application/json').status(200).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
@@ -115,9 +115,9 @@ booksAPI.patch('/:id', async (req, res) => {
 
 booksAPI.delete('/:id', async (req, res) => {
   try {
-    const books = await booksController.deleteBook(req.params.id);
+    const book = await booksController.deleteBook(req.params.id);
 
-    res.contentType('application/json').status(200).send({ data: books });
+    res.contentType('application/json').status(200).send({ data: book });
   } catch (error) {
     res
       .contentType('application/json')
