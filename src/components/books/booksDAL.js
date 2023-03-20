@@ -60,6 +60,20 @@ const booksDAL = {
   calculatePageQuantity: (collectionLength, numberPerPage) => {
     return Math.ceil(collectionLength / numberPerPage);
   },
+
+  getBook: async (id) => {
+    const mongoConnection = await utils.startMongoConnection();
+
+    const result = await booksDAL.findBook(id);
+
+    await utils.endMongoConnection(mongoConnection);
+
+    return new Book(result);
+  },
+
+  findBook: async (id) => {
+    return await BooksModel.findById(id);
+  },
 };
 
 export default booksDAL;

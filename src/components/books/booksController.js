@@ -39,6 +39,13 @@ const booksController = {
     if (errors.length !== 0)
       throw new Error(utils.formatJsonSchemaValidationErrors(errors));
   },
+
+  getBook: async (id) => {
+    const book = new Book({ id });
+    book.validateContent();
+
+    return await booksService.getBook(id);
+  },
 };
 
 export default booksController;
