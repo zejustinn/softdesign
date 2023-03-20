@@ -59,4 +59,17 @@ booksAPI.post('/:id/rent', async (req, res) => {
   }
 });
 
+booksAPI.post('/:id/returnRented', async (req, res) => {
+  try {
+    const books = await booksController.returnRentedBook(req.params.id);
+
+    res.contentType('application/json').status(200).send({ data: books });
+  } catch (error) {
+    res
+      .contentType('application/json')
+      .status(500)
+      .send({ error: { message: error.message } });
+  }
+});
+
 export default booksAPI;

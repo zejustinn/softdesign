@@ -53,6 +53,13 @@ const booksController = {
 
     return await booksService.rentBook(id);
   },
+
+  returnRentedBook: async (id) => {
+    const book = new Book({ id });
+    book.validateContent();
+
+    return await booksService.returnRentedBook(id);
+  },
 };
 
 export default booksController;
