@@ -75,6 +75,13 @@ const booksController = {
 
     return await booksService.updateBook(book);
   },
+
+  deleteBook: async (id) => {
+    const book = new Book({ id });
+    book.validateRequiredUpdationalContent();
+
+    return await booksService.deleteBook(id);
+  },
 };
 
 export default booksController;

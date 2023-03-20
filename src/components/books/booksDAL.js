@@ -125,6 +125,20 @@ const booksDAL = {
       returnOriginal: false,
     });
   },
+
+  deleteBook: async (book) => {
+    const mongoConnection = await utils.startMongoConnection();
+
+    const result = await booksDAL.mongoDeleteBook(book.id);
+
+    await utils.endMongoConnection(mongoConnection);
+
+    return new Book(result);
+  },
+
+  mongoDeleteBook: async (id) => {
+    return await BooksModel.findOneAndDelete({ _id: id });
+  },
 };
 
 export default booksDAL;

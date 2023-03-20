@@ -45,6 +45,17 @@ const booksService = {
 
     return returnedBook;
   },
+
+  deleteBook: async (id) => {
+    const bookToDelete = await BooksDAL.getBook(id);
+
+    if (bookToDelete.isRented)
+      throw new Error('It is not possible to delete this book. It is rented.');
+
+    const returnedBook = await BooksDAL.deleteBook(bookToDelete);
+
+    return returnedBook;
+  },
 };
 
 export default booksService;
