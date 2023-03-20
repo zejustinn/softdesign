@@ -106,6 +106,25 @@ const booksDAL = {
   mongoCreateBook: async (book) => {
     return await BooksModel.create(book);
   },
+
+  updateBook: async (book) => {
+    const mongoConnection = await utils.startMongoConnection();
+
+    const result = await booksDAL.mongoUpdateBook(
+      book.id,
+      book.createMongoUpdateQuery()
+    );
+
+    await utils.endMongoConnection(mongoConnection);
+
+    return new Book(result);
+  },
+
+  mongoUpdateBook: async (id, updateQuery) => {
+    return await BooksModel.findByIdAndUpdate(id, updateQuery, {
+      returnOriginal: false,
+    });
+  },
 };
 
 export default booksDAL;

@@ -17,9 +17,7 @@ const booksService = {
         'It is not possible to rent this book. It is currently rented.'
       );
 
-    const bookRented = await BooksDAL.toggleBookState(bookToRent);
-
-    return bookRented;
+    return await BooksDAL.toggleBookState(bookToRent);
   },
 
   returnRentedBook: async (id) => {
@@ -27,16 +25,25 @@ const booksService = {
 
     if (!bookToReturn.isRented)
       throw new Error(
-        'It is not possible to return a book that it not rented.'
+        'It is not possible to return a book that is not rented.'
       );
 
-    const returnedBook = await BooksDAL.toggleBookState(bookToReturn);
-
-    return returnedBook;
+    return await BooksDAL.toggleBookState(bookToReturn);
   },
 
   createBook: async (book) => {
     return await BooksDAL.createBook(book);
+  },
+
+  updateBook: async (book) => {
+    const bookToValidate = await BooksDAL.getBook(book.id);
+
+    if (bookToValidate.isRented)
+      throw new Error('It is not possible to update this book. It is rented.');
+
+    const returnedBook = await BooksDAL.updateBook(book);
+
+    return returnedBook;
   },
 };
 

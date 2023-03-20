@@ -82,4 +82,33 @@ export default class Book {
     if (errors.length !== 0)
       throw new Error(utils.formatJsonSchemaValidationErrors(errors));
   };
+
+  validateRequiredUpdationalContent = () => {
+    const { errors } = validate(this, {
+      type: 'object',
+      properties: {
+        id: { type: 'string', required: true },
+        title: { type: ['string', 'null'], maxLength: 200 },
+        description: { type: ['string', 'null'], maxLength: 2000 },
+        author: { type: ['string', 'null'], maxLength: 100 },
+        genre: { type: ['string', 'null'], maxLength: 100 },
+        isRented: { type: 'boolean' },
+      },
+    });
+
+    if (errors.length !== 0)
+      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+  };
+
+  createMongoUpdateQuery = (modelInstance) => {
+    const result = {};
+
+    if (this.title !== undefined) result.title = this.title;
+    if (this.description !== undefined) result.description = this.description;
+    if (this.author !== undefined) result.author = this.author;
+    if (this.genre !== undefined) result.genre = this.genre;
+    if (this.isRented !== undefined) result.isRented = this.isRented;
+
+    return result;
+  };
 }

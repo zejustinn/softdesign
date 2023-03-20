@@ -92,4 +92,25 @@ booksAPI.post('/', async (req, res) => {
   }
 });
 
+booksAPI.patch('/:id', async (req, res) => {
+  try {
+    const { title, description, author, genre, isRented } = req.body;
+    const books = await booksController.updateBook(
+      req.params.id,
+      title,
+      description,
+      author,
+      genre,
+      isRented
+    );
+
+    res.contentType('application/json').status(200).send({ data: books });
+  } catch (error) {
+    res
+      .contentType('application/json')
+      .status(500)
+      .send({ error: { message: error.message } });
+  }
+});
+
 export default booksAPI;

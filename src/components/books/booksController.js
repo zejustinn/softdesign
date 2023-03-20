@@ -68,6 +68,13 @@ const booksController = {
 
     return await booksService.createBook(book);
   },
+
+  updateBook: async (id, title, description, author, genre, isRented) => {
+    const book = new Book({ id, title, description, author, genre, isRented });
+    book.validateRequiredUpdationalContent();
+
+    return await booksService.updateBook(book);
+  },
 };
 
 export default booksController;
