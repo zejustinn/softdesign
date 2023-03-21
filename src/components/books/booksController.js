@@ -71,7 +71,7 @@ const booksController = {
 
   createBook: async (title, description, author, genre, isRented) => {
     const book = new Book({ title, description, author, genre, isRented });
-    book.validateRequiredIdAnTitle();
+    book.validateRequiredTitle();
 
     return new ServerResponse(201, await booksService.createBook(book));
   },

@@ -82,6 +82,26 @@ export default class Book {
       );
   };
 
+  validateRequiredTitle = () => {
+    const { errors } = validate(this, {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        title: { type: 'string', maxLength: 200, required: true },
+        description: { type: 'string', maxLength: 2000 },
+        author: { type: 'string', maxLength: 100 },
+        genre: { type: 'string', maxLength: 100 },
+        isRented: { type: 'boolean' },
+      },
+    });
+
+    if (errors.length !== 0)
+      throw new ServerError(
+        400,
+        utils.formatJsonSchemaValidationErrors(errors)
+      );
+  };
+
   validateRequiredIdAnTitle = () => {
     const { errors } = validate(this, {
       type: 'object',
