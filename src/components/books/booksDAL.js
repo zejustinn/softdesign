@@ -68,6 +68,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
+    if (result === null) throw new Error('Given book was not found.');
+
     return new Book(result);
   },
 
@@ -81,6 +83,8 @@ const booksDAL = {
     const result = await booksDAL.findOneAndUpdate(book);
 
     await utils.endMongoConnection(mongoConnection);
+
+    if (result === null) throw new Error('Given book was not found.');
 
     return new Book(result);
   },
@@ -117,6 +121,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
+    if (result === null) throw new Error('Given book was not found.');
+
     return new Book(result);
   },
 
@@ -132,6 +138,8 @@ const booksDAL = {
     const result = await booksDAL.mongoDeleteBook(book.id);
 
     await utils.endMongoConnection(mongoConnection);
+
+    if (result === null) throw new Error('Given book was not found.');
 
     return new Book(result);
   },
