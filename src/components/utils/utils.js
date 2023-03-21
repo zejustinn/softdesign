@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import redis from 'redis';
 import ServerError from './ServerError.js';
 import ServerResponse from './ServerResponse.js';
 
@@ -70,6 +71,17 @@ const utils = {
       { message: serverError.friendlyFeedback },
       { isError: true }
     );
+  },
+
+  startRedisConnection: async () => {
+    const redisConnection = await redis.createClient();
+    redisConnection.connect();
+
+    return redisConnection;
+  },
+
+  endRedisConnection: async (redisConnection) => {
+    await redisConnection.disconnect();
   },
 };
 

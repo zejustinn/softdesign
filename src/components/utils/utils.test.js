@@ -1,5 +1,6 @@
 import { assert } from 'chai';
 import mongoose from 'mongoose';
+import redis from 'redis';
 import sinon from 'sinon';
 import ServerError from './ServerError.js';
 import ServerResponse from './ServerResponse.js';
@@ -96,6 +97,42 @@ describe('src/utils/utils.js', () => {
       const result = utils.handleServerError(serverError);
 
       assert.instanceOf(result, ServerResponse);
+    });
+  });
+
+  describe('When involking "startRedisConnection"', () => {
+    it('Should get "redisConnection" of "createClient" to call "connect" and then be returned', async () => {
+      const fakeConnect = sinon.fake();
+      const fakeRedisConnection = {
+        connect: fakeConnect,
+      };
+      const fakeCreateClient = sinon.fake.resolves(fakeRedisConnection);
+      sinon.replace(redis, 'createClient', fakeCreateClient);
+
+      const result = await utils.startRedisConnection();
+
+      assert.isTrue(
+        fakeConnect.calledOnce,
+        '"redisConnection" should call "connect"'
+      );
+      assert.deepEqual(
+        result,
+        fakeRedisConnection,
+        '"redisConnection" returned by "createClient" should be returned'
+      );
+    });
+  });
+
+  describe('When involking "endRedisConnection"', () => {
+    it('Should call "disconnect" from given "redisConnection"', async () => {
+      const fakeDisconnect = sinon.fake();
+      const redisConnection = {
+        disconnect: fakeDisconnect,
+      };
+
+      await utils.endRedisConnection(redisConnection);
+
+      assert.isTrue(fakeDisconnect.calledOnce);
     });
   });
 });
