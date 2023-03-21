@@ -7,7 +7,24 @@ import User from './User.js';
 
 const authService = {
   authenticateUser: async (user) => {
-    const userFound = await authDAL.getUserByEmail(user.email);
+    const authenticatedUser = await authService.getUser(user);
+    const token = await authService.getUserToken(authenticatedUser);
+
+    return {
+      user: authenticatedUser.getPublicData(),
+      token,
+    };
+  },
+
+  getUser: async (user) => {
+    let userFound = null;
+
+    const cachedUser = await authDAL.getCachedUserByEmail(user.email);
+    if (cachedUser) {
+      userFound = JSON.parse(cachedUser);
+    } else {
+      userFound = await authDAL.getUserByEmail(user.email);
+    }
 
     if (!userFound)
       throw new ServerError(200, "Email doesn't match with any user.");
@@ -16,16 +33,28 @@ const authService = {
       throw new ServerError(200, 'Authentication failed.');
 
     const authenticatedUser = new User(userFound);
-    const token = await authService.createJwtToken(authenticatedUser);
+    await authDAL.setCachedUserByEmail(authenticatedUser);
 
-    return {
-      user: authenticatedUser,
-      token,
-    };
+    return authenticatedUser;
   },
 
   checkPassword: async (textPassword, hasedPassword) => {
     return await bcrypt.compare(textPassword, hasedPassword);
+  },
+
+  getUserToken: async (user) => {
+    let token = null;
+
+    const cachedToken = await authDAL.getCachedUserTokenById(user.id);
+    if (cachedToken) {
+      token = cachedToken;
+    } else {
+      token = await authService.createJwtToken(user);
+    }
+
+    await authDAL.setCachedUserTokenById(user.id, token);
+
+    return token;
   },
 
   createJwtToken: async (user) => {

@@ -33,11 +33,23 @@ export default class User {
       );
   };
 
+  getPublicData = () => {
+    const result = {};
+
+    if (this.id !== undefined) result.id = this.id;
+    if (this.email !== undefined) result.email = this.email;
+    if (this.name !== undefined) result.name = this.name;
+    if (this.profile !== undefined) result.profile = this.profile;
+
+    return result;
+  };
+
   toJSON = () => {
     const result = {};
 
     if (this.id !== undefined) result.id = this.id;
     if (this.email !== undefined) result.email = this.email;
+    if (this.password !== undefined) result.password = this.password;
     if (this.name !== undefined) result.name = this.name;
     if (this.profile !== undefined) result.profile = this.profile;
 
