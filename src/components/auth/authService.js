@@ -65,7 +65,10 @@ const authService = {
         email: user.email,
         profile: user.profile,
       },
-      process.env.JWT_PRIVATE_KEY
+      process.env.JWT_PRIVATE_KEY,
+      {
+        expiresIn: Number(process.env.JWT_EXPIRATION_TIME_IN_SECCONDS),
+      }
     );
   },
 

@@ -19,6 +19,7 @@ const utils = {
       'MONGO_PASSWORD',
       'MONGO_DATABASE',
       'JWT_PRIVATE_KEY',
+      'JWT_EXPIRATION_TIME_IN_SECCONDS',
     ]
   ) => {
     requiredEnviromentVariables.forEach((requiredEnviromentVariable) => {
