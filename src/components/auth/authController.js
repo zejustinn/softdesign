@@ -8,6 +8,10 @@ const authController = {
 
     return await authService.authenticateUser(user);
   },
+
+  verifyJwtToken: (token) => {
+    return authService.verifyJwtToken(token);
+  },
 };
 
 export default authController;

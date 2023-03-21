@@ -37,6 +37,14 @@ const authService = {
       process.env.JWT_PRIVATE_KEY
     );
   },
+
+  verifyJwtToken: (token) => {
+    try {
+      return jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+    } catch {
+      throw new Error('401 Unauthorized');
+    }
+  },
 };
 
 export default authService;
