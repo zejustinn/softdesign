@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import authAPI from './components/auth/authAPI.js';
 import booksAPI from './components/books/booksAPI.js';
 
 import utils from './components/utils/utils.js';
@@ -23,6 +24,7 @@ class App {
   };
 
   setRoutes = () => {
+    this.express.use('/auth', authAPI);
     this.express.use('/books', booksAPI);
   };
 }

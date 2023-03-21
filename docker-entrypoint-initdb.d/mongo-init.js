@@ -3,14 +3,14 @@ db = db.getSiblingDB('softdesign_books');
 db.createCollection('users');
 db.users.insertMany([
   {
-    name: 'Jose',
+    email: 'jose.test@email.com',
     password: '$2a$12$gYzXFX2G4k8s78rdHKZoM.CdOa/1NK1neoa.8fnq0eTyInCanpJ1G', // josepassword
-    profile: 'librarian',
+    name: 'Jose',
   },
   {
-    name: 'Nadine',
+    email: 'nadine.test@email.com',
     password: '$2a$12$OtiP3W8V9Hel5F3JgyL9vuuUGFwEwbY31hdCPrCXFNimNgU2Ufaz6', // nadinepassword
-    profile: 'reader',
+    name: 'Nadine',
   },
 ]);
 

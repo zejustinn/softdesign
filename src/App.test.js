@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import App from './App.js';
 import utils from './components/utils/utils.js';
 import booksAPI from './components/books/booksAPI.js';
+import authAPI from './components/auth/authAPI.js';
 
 describe('src/App.js', () => {
   afterEach(() => {
@@ -90,6 +91,7 @@ describe('src/App.js', () => {
       app.setRoutes();
 
       assert.isTrue(fakeUse.calledOnceWithExactly('/books', booksAPI));
+      assert.isTrue(fakeUse.calledOnceWithExactly('/auth', authAPI));
     });
   });
 });

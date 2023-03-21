@@ -15,6 +15,7 @@ const utils = {
       'MONGO_USERNAME',
       'MONGO_PASSWORD',
       'MONGO_DATABASE',
+      'JWT_PRIVATE_KEY',
     ]
   ) => {
     requiredEnviromentVariables.forEach((requiredEnviromentVariable) => {
