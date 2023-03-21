@@ -47,9 +47,7 @@ const booksService = {
         'It is not possible to update this book. It is rented.'
       );
 
-    const returnedBook = await BooksDAL.updateBook(book);
-
-    return returnedBook;
+    return await BooksDAL.updateBook(book);
   },
 
   deleteBook: async (id) => {
@@ -61,9 +59,7 @@ const booksService = {
         'It is not possible to delete this book. It is rented.'
       );
 
-    const returnedBook = await BooksDAL.deleteBook(bookToDelete);
-
-    return returnedBook;
+    return await BooksDAL.deleteBook(bookToDelete);
   },
 };
 

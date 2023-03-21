@@ -87,7 +87,7 @@ const booksController = {
     const book = new Book({ id });
     book.validateRequiredId();
 
-    return new ServerResponse(204, await booksService.deleteBook(id));
+    return new ServerResponse(410, await booksService.deleteBook(id));
   },
 };
 
