@@ -1,9 +1,15 @@
 import { assert } from 'chai';
 import mongoose from 'mongoose';
 import sinon from 'sinon';
+import ServerError from './ServerError.js';
+import ServerResponse from './ServerResponse.js';
 import utils from './utils.js';
 
 describe('src/utils/utils.js', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
   describe('When involking checkRequiredEnvironmentVariables', () => {
     describe('Should test given envionment variables', () => {
       it('Without any error, if all environment variables are setted', () => {
@@ -62,6 +68,34 @@ describe('src/utils/utils.js', () => {
         result,
         'Error with given data: erro 1 some text; erro 2 some text; erro 2 some text.'
       );
+    });
+  });
+
+  describe('When involking "generateServerResponseFromError"', () => {
+    describe('Should returns result of "handleServerError"', () => {
+      it('If given error is instance of "ServerError"', () => {
+        const serverError = new ServerError('Test error');
+        const handleServerErrorResult = 'Any result';
+        const fakeHandleServerError = sinon.fake.returns(
+          handleServerErrorResult
+        );
+        sinon.replace(utils, 'handleServerError', fakeHandleServerError);
+
+        const result = utils.generateServerResponseFromError(serverError);
+
+        assert.isTrue(fakeHandleServerError.calledOnce);
+        assert.equal(result, handleServerErrorResult);
+      });
+    });
+  });
+
+  describe('When involking "handleServerError"', () => {
+    it('Should return a instance of "ServerResponse"', () => {
+      const serverError = new ServerError(200, 'Any friendly feedback');
+
+      const result = utils.handleServerError(serverError);
+
+      assert.instanceOf(result, ServerResponse);
     });
   });
 });

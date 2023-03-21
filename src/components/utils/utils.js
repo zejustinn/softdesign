@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import ServerError from './ServerError.js';
+import ServerResponse from './ServerResponse.js';
 
 const utils = {
   /**
@@ -48,6 +50,26 @@ const utils = {
     });
 
     return result.replaceAll('instance.', '');
+  },
+
+  generateServerResponseFromError: (error) => {
+    if (error instanceof ServerError) return utils.handleServerError(error);
+
+    console.log(error);
+
+    return new ServerResponse(
+      500,
+      { message: 'Unknown server error. Contact the server administrator' },
+      { isError: true }
+    );
+  },
+
+  handleServerError: (serverError) => {
+    return new ServerResponse(
+      serverError.statusCode,
+      { message: serverError.friendlyFeedback },
+      { isError: true }
+    );
   },
 };
 
