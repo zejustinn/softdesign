@@ -1,4 +1,5 @@
 import { validate } from 'jsonschema';
+import ServerError from '../utils/ServerError.js';
 import utils from '../utils/utils.js';
 
 export default class Book {
@@ -42,7 +43,10 @@ export default class Book {
     });
 
     if (errors.length !== 0)
-      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+      throw new ServerError(
+        400,
+        utils.formatJsonSchemaValidationErrors(errors)
+      );
   };
 
   createMongoFilter = () => {
@@ -72,7 +76,10 @@ export default class Book {
     });
 
     if (errors.length !== 0)
-      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+      throw new ServerError(
+        400,
+        utils.formatJsonSchemaValidationErrors(errors)
+      );
   };
 
   validateRequiredIdAnTitle = () => {
@@ -89,7 +96,10 @@ export default class Book {
     });
 
     if (errors.length !== 0)
-      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+      throw new ServerError(
+        400,
+        utils.formatJsonSchemaValidationErrors(errors)
+      );
   };
 
   createMongoUpdateQuery = () => {

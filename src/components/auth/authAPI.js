@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import utils from '../utils/utils.js';
 import authController from './authController.js';
 
 const authAPI = Router();
@@ -6,14 +7,22 @@ const authAPI = Router();
 authAPI.post('/', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await authController.authenticateUser(email, password);
+    const serverResponse = await authController.authenticateUser(
+      email,
+      password
+    );
 
-    res.contentType('application/json').status(200).send({ data: user });
-  } catch (error) {
     res
-      .contentType('application/json')
-      .status(500)
-      .send({ error: { message: error.message } });
+      .contentType(serverResponse.contentType)
+      .status(serverResponse.statusCode)
+      .send(serverResponse);
+  } catch (error) {
+    const serverResponse = utils.generateServerResponseFromError(error);
+
+    res
+      .contentType(serverResponse.contentType)
+      .status(serverResponse.statusCode)
+      .send(serverResponse);
   }
 });
 

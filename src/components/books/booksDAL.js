@@ -1,3 +1,4 @@
+import ServerError from '../utils/ServerError.js';
 import utils from '../utils/utils.js';
 import Book from './Book.js';
 import BooksModel from './mongo/BooksModel.js';
@@ -68,7 +69,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
-    if (result === null) throw new Error('Given book was not found.');
+    if (result === null)
+      throw new ServerError(400, 'Given book was not found.');
 
     return new Book(result);
   },
@@ -84,7 +86,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
-    if (result === null) throw new Error('Given book was not found.');
+    if (result === null)
+      throw new ServerError(400, 'Given book was not found.');
 
     return new Book(result);
   },
@@ -121,7 +124,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
-    if (result === null) throw new Error('Given book was not found.');
+    if (result === null)
+      throw new ServerError(400, 'Given book was not found.');
 
     return new Book(result);
   },
@@ -139,7 +143,8 @@ const booksDAL = {
 
     await utils.endMongoConnection(mongoConnection);
 
-    if (result === null) throw new Error('Given book was not found.');
+    if (result === null)
+      throw new ServerError(400, 'Given book was not found.');
 
     return new Book(result);
   },

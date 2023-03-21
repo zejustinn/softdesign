@@ -1,4 +1,5 @@
 import { validate } from 'jsonschema';
+import ServerError from '../utils/ServerError.js';
 import utils from '../utils/utils.js';
 
 export default class User {
@@ -26,7 +27,10 @@ export default class User {
     });
 
     if (errors.length !== 0)
-      throw new Error(utils.formatJsonSchemaValidationErrors(errors));
+      throw new ServerError(
+        400,
+        utils.formatJsonSchemaValidationErrors(errors)
+      );
   };
 
   toJSON = () => {

@@ -1,3 +1,4 @@
+import ServerError from '../utils/ServerError.js';
 import BooksDAL from './booksDAL.js';
 
 const booksService = {
@@ -13,7 +14,8 @@ const booksService = {
     const bookToRent = await BooksDAL.getBook(id);
 
     if (bookToRent.isRented)
-      throw new Error(
+      throw new ServerError(
+        200,
         'It is not possible to rent this book. It is currently rented.'
       );
 
@@ -24,7 +26,8 @@ const booksService = {
     const bookToReturn = await BooksDAL.getBook(id);
 
     if (!bookToReturn.isRented)
-      throw new Error(
+      throw new ServerError(
+        200,
         'It is not possible to return a book that is not rented.'
       );
 
@@ -39,7 +42,10 @@ const booksService = {
     const bookToValidate = await BooksDAL.getBook(book.id);
 
     if (bookToValidate.isRented)
-      throw new Error('It is not possible to update this book. It is rented.');
+      throw new ServerError(
+        200,
+        'It is not possible to update this book. It is rented.'
+      );
 
     const returnedBook = await BooksDAL.updateBook(book);
 
@@ -50,7 +56,10 @@ const booksService = {
     const bookToDelete = await BooksDAL.getBook(id);
 
     if (bookToDelete.isRented)
-      throw new Error('It is not possible to delete this book. It is rented.');
+      throw new ServerError(
+        200,
+        'It is not possible to delete this book. It is rented.'
+      );
 
     const returnedBook = await BooksDAL.deleteBook(bookToDelete);
 
