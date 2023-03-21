@@ -6,7 +6,7 @@ const signJwtToken = function (req, res, next) {
 
     if (!token) throw new Error('400 bad request');
 
-    authController.verifyJwtToken(token);
+    authController.verifyJwtToken(token.replace('Bearer ', ''));
 
     next();
   } catch (error) {
