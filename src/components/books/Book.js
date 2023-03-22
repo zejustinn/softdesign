@@ -1,4 +1,5 @@
 import { validate } from 'jsonschema';
+import mongoose from 'mongoose';
 import ServerError from '../utils/ServerError.js';
 import utils from '../utils/utils.js';
 
@@ -42,6 +43,9 @@ export default class Book {
       },
     });
 
+    if (this.id && !mongoose.isValidObjectId(this.id))
+      throw new ServerError(400, 'Given ID can not be casted to ObjectId');
+
     if (errors.length !== 0)
       throw new ServerError(
         400,
@@ -75,6 +79,9 @@ export default class Book {
       },
     });
 
+    if (this.id && !mongoose.isValidObjectId(this.id))
+      throw new ServerError(400, 'Given ID can not be casted to ObjectId');
+
     if (errors.length !== 0)
       throw new ServerError(
         400,
@@ -95,6 +102,9 @@ export default class Book {
       },
     });
 
+    if (this.id && !mongoose.isValidObjectId(this.id))
+      throw new ServerError(400, 'Given ID can not be casted to ObjectId');
+
     if (errors.length !== 0)
       throw new ServerError(
         400,
@@ -114,6 +124,9 @@ export default class Book {
         isRented: { type: 'boolean' },
       },
     });
+
+    if (this.id && !mongoose.isValidObjectId(this.id))
+      throw new ServerError(400, 'Given ID can not be casted to ObjectId');
 
     if (errors.length !== 0)
       throw new ServerError(
