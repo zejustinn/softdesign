@@ -50,7 +50,7 @@ const authDAL = {
     const redisConnection = await utils.startRedisConnection();
 
     const result = await redisConnection.set(id, token, {
-      EX: process.env.JWT_EXPIRATION_TIME_IN_SECCONDS,
+      EX: Number(process.env.JWT_EXPIRATION_TIME_IN_SECCONDS),
     });
 
     await utils.endRedisConnection(redisConnection);
